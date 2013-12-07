@@ -1,7 +1,7 @@
-git remote add origin https://github.com/FFellica/Radio.git
+$ git remote add origin https://github.com/FFellica/Radio.git
 # Creates a remote named "origin" pointing at your GitHub repository
 
-git push origin master
+$ git push origin master
 # Sends your commits in the "master" branch to GitHub
 
 import processing.core.*; 
