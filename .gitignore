@@ -1,0 +1,16 @@
+Radio
+-------------------
+
+//1.	Copy and paste the code availbe in the .gitignore document in Processing
+
+//2.    Compile the code by clicking on the Run button
+
+//3.	Click on the “Start” button to play a sound file
+
+//4.	Click on the “Pause” button to pause a sound file
+
+//5.	Click on the “Resume” button to resume a sound file
+
+//6.	Click on the  “RWD” button to rewind a sound file for the start
+
+//7.	Click on the “FWD” button to skip 100 millisecond ahead of the sound file
