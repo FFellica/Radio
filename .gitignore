@@ -1,16 +1,256 @@
-Radio
--------------------
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
 
-//1.	Copy and paste the code availbe in the .gitignore document in Processing
+import controlP5.*; 
+import ddf.minim.*; 
+import ddf.minim.signals.*; 
+import ddf.minim.effects.*; 
 
-//2.    Compile the code by clicking on the Run button
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
 
-//3.	Click on the “Start” button to play a sound file
+public class App_4 extends PApplet {
 
-//4.	Click on the “Pause” button to pause a sound file
+// The next line is needed if running in JavaScript Mode with Processing.js
 
-//5.	Click on the “Resume” button to resume a sound file
+//Import controlP5 library;
 
-//6.	Click on the  “RWD” button to rewind a sound file for the start
 
-//7.	Click on the “FWD” button to skip 100 millisecond ahead of the sound file
+//Import Minim library;
+
+
+//Import Minim Signals;
+
+
+//Import Minim Effects;
+
+
+// Import ControlP5 library with a variable (object)
+// named gui (graphical user interface);
+ControlP5 gui;
+
+//Create variable of Minim
+Minim minim;
+
+//Create a variable of Button type;
+Button theButton;
+
+//Create a variable of Audio Output type to handle signal output;
+AudioOutput out;
+
+//Create a variable of AudioPlayer type;
+AudioPlayer playerstart;
+
+
+// Declare a variable of PImage type;
+PImage img;
+PImage graffiti;
+
+public void setup()
+{
+  
+//Set the size of the window;
+  size(500, 305);
+  gui = new ControlP5(this);
+  minim = new Minim(this);   // new code
+  out = minim.getLineOut(Minim.STEREO);
+  smooth();
+  
+
+  
+//Create a button on screen called "Start" - 320 and 60 are the Y and X positions;
+  theButton = gui.addButton("Play",999,200,270,0,0);
+  
+//Create a button on screen called "Stop"- 280 and 80 are the Y and X positions;
+  theButton = gui.addButton("Pause",999,221,270,0,0);
+  
+  //Create a button on screen called "Pause"- 320 and 80 are the Y and X positions;
+  theButton = gui.addButton("RWD",999,248,270,0,0);
+  
+  //Create a button on screen called "Pause"- 320 and 90 are the Y and X positions
+  theButton = gui.addButton("FWD", 999,270,270,0,0);
+  
+  theButton = gui.addButton("Resume", 999,270,170,0,0);
+  
+//Assign sound file to the object playeratmosphere and set up a buffer size;;
+  playerstart = minim.loadFile("bobby.mp3", 1024);
+  
+  //Rate that frames are processed (per second);
+  frameRate(500);
+  
+   //Load an image file;
+   img = loadImage("radio_2.jpg");
+  //PImage graffiti = loadImage("graffiti.jpg");
+  img.loadPixels();
+// Only need to load the pixels[] array once, because we're only
+// manipulating pixels[] inside draw(), not drawing shapes;
+// Function called before accessing the pixel array to load the pixels
+}
+
+//Function executed repeatedly whenever there is drawing or animation to be done;
+public void draw()
+   {
+     image(img, 0, 0);
+  }
+
+//Add a mouse click, when it happens, mousePressed is executed
+public void mousePressed()
+
+{
+//Condition to see If the mouse's position is more than 50 and less than 100 on the X axis 
+//and more than 155 and less than 325 on the Y axis.
+//If so, playeramosphere plays the audio file associated with it;
+  if (mouseX > 198 && mouseX < 225 && mouseY > 260 && mouseY < 275)
+  {
+    
+//Play playerstart's audio;   
+playerstart.play();
+  
+//Write into the text area of the Processing environment's console
+//to look at the data the program is producing;
+  println("Start");
+//change the cursor into a hand 
+  cursor(HAND);
+  }
+  
+//Condition to see If the mouse's position is more than 220 and less than 220 on the X axis 
+//and more than 260 and less than 275 on the Y axis.
+//If so, playeramosphere plays the audio file associated with it;
+  if (mouseX > 220 && mouseX < 235 && mouseY > 260 && mouseY < 275)
+  
+  {
+playerstart.pause();
+
+//Write into the text area of the Processing environment's console
+//to look at the data the program is producing;
+  println("Pause");
+//change the cursor into a hand
+  cursor(HAND);
+ }
+
+ //Condition to see If the mouse's position is more than 240 and less than 260 on the X axis 
+//and more than 260 and less than 275 on the Y axis.
+//If so, playeramosphere plays the audio file associated with it;
+ if (mouseX > 240 && mouseX < 260 && mouseY > 260 && mouseY < 275)
+  
+  {
+    //Audio associated with playerstart starts from the beginning everytime the button is pressed
+    playerstart.rewind();
+
+//Write into the text area of the Processing environment's console
+//to look at the data the program is producing;
+  println("Rewind");
+//change the cursor into a hand
+  cursor(HAND);
+ }
+ 
+ //Condition to see If the mouse's position is more than 260 and less than 300 on the X axis 
+//and more than 260 and less than 275 on the Y axis.
+//If so, playeramosphere plays the audio file associated with it;
+  if (mouseX > 260 && mouseX < 300 && mouseY > 260 && mouseY < 275)
+  
+  {
+    //Audio associated with playerstart skips by 100 ms everytime the button is pressed
+    playerstart.skip(100);
+
+//Write into the text area of the Processing environment's console
+//to look at the data the program is producing;
+  println("Forward");
+//change the cursor into a hand
+  cursor(HAND);
+ }
+ 
+ //Condition to see If the mouse's position is more than 265 and less than 290 on the X axis 
+//and more than 160 and less than 200 on the Y axis.
+//If so, playeramosphere plays the audio file associated with it;
+ if (mouseX > 265 && mouseX < 290 && mouseY > 160 && mouseY < 200)
+  
+  {
+    ////Audio associated with playerstart starts playing at the point where it got paused everytime the button is pressed
+    playerstart.play();
+
+//Write into the text area of the Processing environment's console
+//to look at the data the program is producing;
+  println("Resume");
+//change the cursor into a hand
+  cursor(HAND);
+ }
+}
+
+//Function executed when the Play button is pressed
+public void Start(int theValue)
+{
+  
+  playerstart.play();
+  
+//Print out a message on the console at the bottom of the application windown
+//when the Atmosphere button is pressed;
+  println("Start");
+  
+}
+
+//Function executed when the Pause button is pressed
+public void Pause(int theValue)
+
+{
+  playerstart.pause();
+//Print out a message on the console at the bottom of the application windown
+//when the Dunk button is pressed;
+  println("Pause");
+}
+
+//Function executed when the RWD button is pressed
+public void RWD (int theValue)
+
+{
+  playerstart.rewind();
+//Print out a message on the console at the bottom of the application windown
+//when the Dunk button is pressed;
+  println("Rewind");
+}
+
+//Function executed when the FWD button is pressed
+public void FWD (int theValue)
+
+{
+  playerstart.skip(100);
+//Print out a message on the console at the bottom of the application windown
+//when the Dunk button is pressed;
+  println("FWD");
+}
+
+//Function executed when the Resume button is pressed
+public void Resume (int theValue)
+
+{
+  playerstart.play();
+//Print out a message on the console at the bottom of the application windown
+//when the Dunk button is pressed;
+  println("FWD");
+}
+
+public void stop()
+
+{  
+//always close Minim audio classes when you are done with them
+out.close();
+playerstart.close();
+minim.stop();
+super.stop();
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "App_4" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}
